@@ -114,7 +114,7 @@ public class Vue extends Application {
               continue_ = sc.nextInt();
               afficher(width,height,rowNb,colNb,plateau,primaryStage,grille);
         }while(continue_ == 1);*/
-    }
+      }
     public static void afficher(int width,int height,int rowNb, int colNb,int [][] plateau, Stage primaryStage,Grille grille){
         Image pacman1 = new Image("pacman1.png");
         /*Point pou=null;
