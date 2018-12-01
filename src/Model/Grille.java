@@ -217,9 +217,27 @@ public class Grille {
 	public Point deplacerCreature(Creature c, Direction d) {
 		//you should take care of the case where get(c) returns null;
 		Point currentPos = creaturesMap.get(c);
-		Point nextPos = currentPos;
+		Point nextPos = new Point(0,0);
 			switch(d) {
 			case UP:
+				if(!(this.getCaseGrille(currentPos.getI(), currentPos.getJ()-1) instanceof Mur)) {
+                                        nextPos = new Point(currentPos.getI(), currentPos.getJ()-1);
+					deplacerversCouloir(currentPos, nextPos, c, d);
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
+				}
+				break;
+			case RIGHT:
+				if(!(this.getCaseGrille(currentPos.getI()+1, currentPos.getJ()) instanceof Mur)) {
+					nextPos = new Point(currentPos.getI()+1, currentPos.getJ());
+					deplacerversCouloir(currentPos, nextPos, c, d);
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
+				}
+				break;
+			case LEFT:
 				if(!(this.getCaseGrille(currentPos.getI()-1, currentPos.getJ()) instanceof Mur)) {
 					nextPos = new Point(currentPos.getI()-1, currentPos.getJ());
 					deplacerversCouloir(currentPos, nextPos, c, d);
@@ -228,27 +246,9 @@ public class Grille {
 					creatures[nextPos.getI()][nextPos.getJ()] = c;
 				}
 				break;
-			case RIGHT:
+			case DOWN:
 				if(!(this.getCaseGrille(currentPos.getI(), currentPos.getJ()+1) instanceof Mur)) {
 					nextPos = new Point(currentPos.getI(), currentPos.getJ()+1);
-					deplacerversCouloir(currentPos, nextPos, c, d);
-					creaturesMap.put(c, nextPos);
-					creatures[currentPos.getI()][currentPos.getJ()] = null;
-					creatures[nextPos.getI()][nextPos.getJ()] = c;
-				}
-				break;
-			case LEFT:
-				if(!(this.getCaseGrille(currentPos.getI(), currentPos.getJ()-1) instanceof Mur)) {
-					nextPos = new Point(currentPos.getI(), currentPos.getJ()-1);
-					deplacerversCouloir(currentPos, nextPos, c, d);
-					creaturesMap.put(c, nextPos);
-					creatures[currentPos.getI()][currentPos.getJ()] = null;
-					creatures[nextPos.getI()][nextPos.getJ()] = c;
-				}
-				break;
-			case DOWN:
-				if(!(this.getCaseGrille(currentPos.getI()+1, currentPos.getJ()) instanceof Mur)) {
-					nextPos = new Point(currentPos.getI()+1, currentPos.getJ());
 					deplacerversCouloir(currentPos, nextPos, c, d);
 					creaturesMap.put(c, nextPos);
 					creatures[currentPos.getI()][currentPos.getJ()] = null;
