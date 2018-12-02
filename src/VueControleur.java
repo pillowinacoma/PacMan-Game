@@ -1,21 +1,18 @@
 
-//import java.scene.image.Image;
 import javafx.scene.image.Image;
 import  Model.*;
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class VueControleur extends Application {
@@ -34,47 +31,43 @@ public class VueControleur extends Application {
 
       @Override
     public void start(Stage primaryStage) {
-          int continue_ = 1;
-          Scanner sc = new Scanner(System.in);
-          int jii = 50000;
-          Group root = new Group();
+          ImageView[][] grid=new ImageView[grille.getN()][grille.getM()];
+          
           Image ghost = new Image("file:./img/ghost.png");
+          Image wall = new Image("file:./img/blue.png");
+          Image coul = new Image("file:./img/black.png");
           Image pacman1 = new Image("pacman1.png");
           ImageView pp = new ImageView(pacman1);
+          
+          
           GridPane gridpane = new GridPane();
-          Rectangle r = new Rectangle(width,height);
-          double sw = r.getStrokeWidth();
-          Scene scene = new Scene(root,(width+sw)*grille.getM(),(height+sw)*grille.getN(), Color.CADETBLUE);
-
-          afficherInit(width,height,grille.getN(),grille.getM(),primaryStage,grille,root,pp,gridpane,ghost);
+          
+          
+          afficherInit(width,height,grille.getN(),grille.getM(),pp,grille,gridpane,grid);
           HashMap<Creature,Point> cmap = grille.getCreaturesMap();
-          System.out.println(cmap);
-          //Point po=new Point(1,2);
-          /*do{
-              cmap.forEach((key,value)->{grille.deplacerCreature(key,key.getCurrentDirection());});
-              System.out.println("continue ?");
-              continue_ = sc.nextInt();
-              afficher(width,height,rowNb,colNb,plateau,primaryStage,grille);
-        }while(continue_ == 1);*/
 
           Observer o = new Observer() {
               @Override
               public void update(Observable observable, Object o) {
-                  afficher(width,height,grille.getN(),grille.getM(),primaryStage,grille,root,pp,gridpane,ghost);
+                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman1,ghost,wall,coul);
               }
           };
+          
           grille.addObserver(o);
           grille.start();
+          
+          StackPane root = new StackPane();
           root.getChildren().add(gridpane);
-
-
-
+          
+          Scene scene = new Scene(root,(width/*+sw*/)*grille.getM(),(height/*+sw*/)*grille.getN(), Color.CADETBLUE);
+          
+          primaryStage.setTitle("Pac Man");
           primaryStage.setScene(scene);
           primaryStage.show();
 
-          root.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() { // on écoute le clavier
-
-
+          
+          
+          root.setOnKeyPressed(new EventHandler<javafx.scene.input.KeyEvent>() { 
               @Override
               public void handle(javafx.scene.input.KeyEvent event) {
                   switch(event.getCode()){
@@ -97,72 +90,37 @@ public class VueControleur extends Application {
                   }
               }
           });
-
+          
           gridpane.requestFocus();
-
-      }
-    public static void afficherInit(int width,int height,int rowNb, int colNb, Stage primaryStage,Grille grille, Group root,ImageView pp, GridPane gridpane,Image ghost){
-        /*Point pou=null;
-        getP(plateau,pou);
-        System.out.println(po);*/
-        primaryStage.setTitle("Pac Man");
-        Rectangle r = new Rectangle(width,height);
+      
+        }
+    public static void afficherInit(int width,int height,int rowNb, int colNb,ImageView pp ,Grille grille,GridPane gridpane,ImageView[][] grid){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
-                r = new Rectangle(width,height);
-                if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
-                    r.setFill(Color.PURPLE);
-                    gridpane.add(r,j,i);
-                }
-                else if((grille.getCaseGrille(i,j)instanceof Model.Couloir)) {
-                    r.setFill(Color.BLACK);
-                    gridpane.add(r,j,i);
-                }
-                if((grille.getCaseCreature(i,j)instanceof Model.PacMan)) {
-                    gridpane.add(pp,j,i);
-                }
-                else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
-                    gridpane.add(new ImageView(ghost),j,i);
-                }
-                r.setStroke(Color.GREY);
+                ImageView img = new ImageView();
+                grid[i][j]=img;
+                gridpane.add(img, i, j);
             }
         }
-
-
-        //PacMan
-
     }
 
-    public static void afficher(int width,int height,int rowNb, int colNb, Stage primaryStage,Grille grille, Group root,ImageView pp, GridPane gridpane,Image ghost){
-        /*Point pou=null;
-        getP(plateau,pou);
-        System.out.println(po);*/
-        primaryStage.setTitle("Pac Man");
-        Rectangle r = new Rectangle(width,height);
+    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pp,Image ghost,Image wall,Image coul){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
-                r = new Rectangle(width,height);
                 if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
-                    r.setFill(Color.PURPLE);
-                    gridpane.add(r,j,i);
+                    grid[i][j].setImage(wall);
                 }
-                else if((grille.getCaseGrille(i,j)instanceof Model.Couloir)) {
-                    r.setFill(Color.BLACK);
-                    gridpane.add(r,j,i);
+                else if((grille.getCaseGrille(i ,j)instanceof Model.Couloir)) {
+                    grid[i][j].setImage(coul);
                 }
                 if((grille.getCaseCreature(i,j)instanceof Model.PacMan)) {
-                    gridpane.add(pp,j,i);
+                    grid[i][j].setImage(pp);
                 }
                 else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
-                    gridpane.add(new ImageView(ghost),j,i);
+                    grid[i][j].setImage(ghost);
                 }
-                r.setStroke(Color.GREY);
             }
         }
-
-
-        //PacMan
-
     }
 
 }

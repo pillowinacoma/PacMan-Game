@@ -1,5 +1,7 @@
 package Model;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Grille extends Observable implements Runnable{
 	private Bloc [][] grille;
@@ -349,7 +351,10 @@ public class Grille extends Observable implements Runnable{
 			}
 		return nextPos;
 	}
-
+        
+        public void start(){
+		new Thread(this).start();
+	}
 
 	@Override
 	public void run() {
@@ -360,10 +365,13 @@ public class Grille extends Observable implements Runnable{
 			}
 			setChanged();
 			notifyObservers();
+                        
+                        try {
+                            Thread.sleep(300); // pause
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Grille.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 		}
-	}
-	public void start(){
-		new Thread(this).start();
 	}
 }
 
