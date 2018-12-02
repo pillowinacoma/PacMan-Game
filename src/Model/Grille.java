@@ -1,12 +1,47 @@
 package Model;
 import java.util.*;
 
-public class Grille {
+public class Grille extends Observable implements Runnable{
 	private Bloc [][] grille;
 	private Creature [][] creatures;
 	private HashMap<Creature, Point> creaturesMap;
 	private int n;
 	private int m;
+	private PacMan pacman;
+	private Fantom [] fantoms;
+	static int[][] plateau={
+			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 3, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 0, 5, 0, 0, 0, 0, 5, 0, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 0, 0, 0, 0, 2, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 0, 0, 0, 0, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1},
+			{1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1},
+			{1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1},
+			{1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1},
+			{1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1},
+			{1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1},
+			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
+			{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
 
 	public Grille(int n, int m) {
 		this.n = n;
@@ -14,9 +49,66 @@ public class Grille {
 		this.grille = new Bloc[n][m];
 		this.creatures = new Creature[n][m];
 		this.creaturesMap = new HashMap<Creature,Point>();
-		initGrille();initCreatures();		
+		initGrille();initCreatures();
 	}
-	
+	public Grille() {
+		this.n = plateau.length;
+		this.m = plateau[0].length;
+		this.grille = new Bloc[n][m];
+		this.creatures = new Creature[n][m];
+		this.creaturesMap = new HashMap<Creature,Point>();
+		initGrille();initCreatures();
+		for(int i = 0 ; i < n ; i++){
+			for(int j = 0 ; j < getM() ; j++){
+				switch(plateau[i][j]){
+					case 0:break;
+					case 1:setCaseGrille(i, j, new Model.Mur());break;
+					case 2:((Couloir) getCaseGrille(i,j)).setPacGum(true);break;//normalement PacGum
+					case 3:((Couloir) getCaseGrille(i,j)).setSuperPacGum(true);break;//normalement SuperPacGum
+					//case 4:setCaseCreature(i, j, new Model.PacMan());break;
+					//case 5:setCaseCreature(i, j, new Model.Fantom());break;
+				}
+			}
+		}
+
+		this.pacman = new PacMan();
+		setCaseCreature(23,13,pacman);
+		this.fantoms = new Fantom[4];
+		for (int i = 0 ; i < 4 ; i++){
+			fantoms[i] = new Fantom();
+			setCaseCreature(11,12+i,fantoms[i]);
+		}
+
+	}
+
+	public PacMan getPacman() {
+		return pacman;
+	}
+
+	public Fantom[] getFantoms() {
+		return fantoms;
+	}
+
+	public static int[][] getPlateau() {
+		return plateau;
+	}
+
+	public void setCreaturesMap(HashMap<Creature, Point> creaturesMap) {
+		this.creaturesMap = creaturesMap;
+	}
+
+	public void setPacman(PacMan pacman) {
+		this.pacman = pacman;
+	}
+
+	public void setFantoms(Fantom[] fantoms) {
+		this.fantoms = fantoms;
+	}
+
+	public static void setPlateau(int[][] plateau) {
+		Grille.plateau = plateau;
+	}
+
 	public Bloc[][] getGrille() {
 		return grille;
 	}
@@ -257,4 +349,21 @@ public class Grille {
 			}
 		return nextPos;
 	}
+
+
+	@Override
+	public void run() {
+		while(true){
+			deplacerCreature(pacman,pacman.getCurrentDirection());
+			for (int i = 0 ; i < 4 ; i++){
+				deplacerCreature(fantoms[i],fantoms[i].getCurrentDirection());
+			}
+			setChanged();
+			notifyObservers();
+		}
+	}
+	public void start(){
+		new Thread(this).start();
+	}
 }
+

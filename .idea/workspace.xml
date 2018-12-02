@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PacMan/Model/Grille$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacMan/Model/Grille$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PacMan/Model/Grille.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacMan/Model/Grille.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PacMan/Model/Jeu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacMan/Model/Jeu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PacMan/Vue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PacMan/Vue.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Vue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Vue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PacMan/Vue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Grille.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Grille.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Jeu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Jeu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VueControleur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/VueControleur.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,18 +70,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Vue.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="126" column="40" lean-forward="true" selection-start-line="126" selection-start-column="40" selection-end-line="126" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Model/Fantom.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -98,15 +89,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Model/Grille.java">
+        <entry file="file://$PROJECT_DIR$/src/Model/Couloir.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-              <folding>
-                <element signature="e#658#659#0" expanded="true" />
-                <element signature="e#684#685#0" expanded="true" />
-                <element signature="method#deplacerCreature#0;class#Grille#0" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -115,7 +101,41 @@
         <entry file="file://$PROJECT_DIR$/src/Model/Jeu.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+              <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Model/Grille.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3120">
+              <caret line="361" selection-start-line="361" selection-end-line="361" />
+              <folding>
+                <element signature="e#5393#5489#0" />
+                <element signature="e#5493#5594#0" />
+                <element signature="e#5678#5798#0" />
+                <element signature="e#5802#5907#0" />
+                <element signature="e#5911#6059#0" />
+                <element signature="e#6063#6207#0" />
+                <element signature="e#6211#6351#0" />
+                <element signature="e#6495#7027#0" />
+                <element signature="e#7030#7408#0" />
+                <element signature="e#7410#7697#0" />
+                <element signature="e#9767#11573#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/VueControleur.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="143" column="29" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -141,10 +161,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
-        <option value="$PROJECT_DIR$/src/Model/Grille.java" />
         <option value="$PROJECT_DIR$/src/Vue.java" />
         <option value="$PROJECT_DIR$/src/GameContainer.java" />
         <option value="$PROJECT_DIR$/src/Model/Jeu.java" />
+        <option value="$PROJECT_DIR$/src/Model/Grille.java" />
+        <option value="$PROJECT_DIR$/src/VueControleur.java" />
       </list>
     </option>
   </component>
@@ -186,8 +207,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -199,7 +220,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543497915745" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543694541388" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/ext/jfxrt.jar!/" />
     <property name="project.structure.last.edited" value="Project" />
@@ -221,7 +242,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Vue">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -265,8 +286,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Vue" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Vue" />
+    <configuration name="VueControleur" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="VueControleur" />
       <module name="PacMan" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <method v="2">
@@ -310,12 +331,12 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="Application.Vue" />
+      <item itemvalue="Application.VueControleur" />
       <item itemvalue="Application.GameContainer" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Vue" />
+        <item itemvalue="Application.VueControleur" />
         <item itemvalue="Application.GameContainer" />
       </list>
     </recent_temporary>
@@ -339,9 +360,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="25" width="1307" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21332276" />
-      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.21966693" />
+      <window_info id="Structure" order="1" weight="0.24980174" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Image Layers" order="4" />
@@ -349,13 +371,13 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24918567" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21172638" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39935064" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3843648" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
@@ -379,6 +401,18 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Model/Grille.java</url>
+          <line>170</line>
+          <properties />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -387,29 +421,11 @@
     <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml" />
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java" />
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/GameContainer.java">
+    <entry file="file://$PROJECT_DIR$/src/GameContainer.java" />
+    <entry file="file://$PROJECT_DIR$/src/Model/Fantom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Jeu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Grille.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-          <folding>
-            <element signature="e#658#659#0" expanded="true" />
-            <element signature="e#684#685#0" expanded="true" />
-            <element signature="method#deplacerCreature#0;class#Grille#0" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -420,17 +436,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Fantom.java">
+    <entry file="file://$PROJECT_DIR$/src/Model/Couloir.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Vue.java">
+    <entry file="file://$PROJECT_DIR$/src/Model/Jeu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="126" column="40" lean-forward="true" selection-start-line="126" selection-start-column="40" selection-end-line="126" selection-end-column="40" />
+        <state relative-caret-position="90">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Model/Grille.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3120">
+          <caret line="361" selection-start-line="361" selection-end-line="361" />
+          <folding>
+            <element signature="e#5393#5489#0" />
+            <element signature="e#5493#5594#0" />
+            <element signature="e#5678#5798#0" />
+            <element signature="e#5802#5907#0" />
+            <element signature="e#5911#6059#0" />
+            <element signature="e#6063#6207#0" />
+            <element signature="e#6211#6351#0" />
+            <element signature="e#6495#7027#0" />
+            <element signature="e#7030#7408#0" />
+            <element signature="e#7410#7697#0" />
+            <element signature="e#9767#11573#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/VueControleur.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="143" column="29" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
