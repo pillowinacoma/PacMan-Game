@@ -1,6 +1,7 @@
 
 import javafx.scene.image.Image;
 import  Model.*;
+import java.awt.Label;
 
 import java.util.HashMap;
 import java.util.Observable;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class VueControleur extends Application {
@@ -34,6 +36,8 @@ public class VueControleur extends Application {
           ImageView[][] grid=new ImageView[grille.getN()][grille.getM()];
           
           Image ghost = new Image("file:./img/ghost.png");
+          Image PacGum = new Image("file:./img/pacgum.png");
+          Image SuperPacGum = new Image("file:./img/SuperPacGum.png");
           Image wall = new Image("file:./img/blue.png");
           Image coul = new Image("file:./img/black.png");
           Image pacman_right = new Image("pacman1.png");
@@ -52,7 +56,7 @@ public class VueControleur extends Application {
           Observer o = new Observer() {
               @Override
               public void update(Observable observable, Object o) {
-                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghost,wall,coul);
+                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghost,wall,coul,PacGum,SuperPacGum);
               }
           };
           
@@ -62,7 +66,12 @@ public class VueControleur extends Application {
           StackPane root = new StackPane();
           root.getChildren().add(gridpane);
           
-          Scene scene = new Scene(root,(width/*+sw*/)*grille.getM(),(height/*+sw*/)*grille.getN(), Color.CADETBLUE);
+          Label score= new Label();
+          score.setText("score :::::::::::");
+          
+          //root.getChildren().add(score);
+          
+          Scene scene = new Scene(root,(width)*grille.getM(),(height)*grille.getN(), Color.WHEAT);
           
           primaryStage.setTitle("Pac Man");
           primaryStage.setScene(scene);
@@ -76,19 +85,19 @@ public class VueControleur extends Application {
                   switch(event.getCode()){
                       case DOWN:
                           grille.getPacman().setCurrentDirection(Direction.DOWN);
-                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                       case UP:
                           grille.getPacman().setCurrentDirection(Direction.UP);
-                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           ;break;
                       case RIGHT:
                           grille.getPacman().setCurrentDirection(Direction.RIGHT);
-                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                       case LEFT:
                           grille.getPacman().setCurrentDirection(Direction.LEFT);
-                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                   }
               }
@@ -107,7 +116,7 @@ public class VueControleur extends Application {
         }
     }
 
-    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image ghost,Image wall,Image coul){
+    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image ghost,Image wall,Image coul,Image PacGum,Image SuperPacGum){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
                 if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
@@ -128,6 +137,14 @@ public class VueControleur extends Application {
                 }
                 else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
                     grid[i][j].setImage(ghost);
+                }
+                if(grille.getCaseGrille(i,j)instanceof Model.Couloir){
+                        if(((Couloir)grille.getCaseGrille(i,j)).isPacGum()){
+                        grid[i][j].setImage(PacGum);
+                        }
+                        else if(((Couloir)grille.getCaseGrille(i,j)).isSuperPacGum()){
+                        grid[i][j].setImage(SuperPacGum);
+                        }
                 }
             }
         }
