@@ -76,19 +76,19 @@ public class VueControleur extends Application {
                   switch(event.getCode()){
                       case DOWN:
                           grille.getPacman().setCurrentDirection(Direction.DOWN);
-                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                       case UP:
                           grille.getPacman().setCurrentDirection(Direction.UP);
-                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           ;break;
                       case RIGHT:
                           grille.getPacman().setCurrentDirection(Direction.RIGHT);
-                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                       case LEFT:
                           grille.getPacman().setCurrentDirection(Direction.LEFT);
-                          System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
+                          //System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
                   }
               }
