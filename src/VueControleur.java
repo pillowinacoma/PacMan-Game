@@ -36,20 +36,23 @@ public class VueControleur extends Application {
           Image ghost = new Image("file:./img/ghost.png");
           Image wall = new Image("file:./img/blue.png");
           Image coul = new Image("file:./img/black.png");
-          Image pacman1 = new Image("pacman1.png");
-          ImageView pp = new ImageView(pacman1);
+          Image pacman_right = new Image("pacman1.png");
+          Image pacman_left = new Image("file:./img/pacman_left.png");
+          Image pacman_up = new Image("file:./img/pacman_up.png");
+          Image pacman_down = new Image("file:./img/pacman_down.png");
+          ImageView pr = new ImageView(pacman_right);
           
           
           GridPane gridpane = new GridPane();
           
           
-          afficherInit(width,height,grille.getN(),grille.getM(),pp,grille,gridpane,grid);
+          afficherInit(width,height,grille.getN(),grille.getM(),pr,grille,gridpane,grid);
           HashMap<Creature,Point> cmap = grille.getCreaturesMap();
 
           Observer o = new Observer() {
               @Override
               public void update(Observable observable, Object o) {
-                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman1,ghost,wall,coul);
+                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghost,wall,coul);
               }
           };
           
@@ -104,7 +107,7 @@ public class VueControleur extends Application {
         }
     }
 
-    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pp,Image ghost,Image wall,Image coul){
+    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image ghost,Image wall,Image coul){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
                 if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
@@ -114,7 +117,14 @@ public class VueControleur extends Application {
                     grid[i][j].setImage(coul);
                 }
                 if((grille.getCaseCreature(i,j)instanceof Model.PacMan)) {
-                    grid[i][j].setImage(pp);
+                   PacMan chaoui = (PacMan)(grille.getCaseCreature(i,j));
+                   Direction d = chaoui.getCurrentDirection();
+                   switch(d){
+                       case UP:grid[i][j].setImage(pu);break;
+                       case DOWN:grid[i][j].setImage(pd);break;
+                       case RIGHT:grid[i][j].setImage(pr);break;
+                       case LEFT:grid[i][j].setImage(pl);break;
+                   }
                 }
                 else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
                     grid[i][j].setImage(ghost);

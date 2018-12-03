@@ -72,15 +72,20 @@ public class Grille extends Observable implements Runnable{
 				}
 			}
 		}
-
+                
 		this.pacman = new PacMan();
 		setCaseCreature(23,13,pacman);
 		this.fantoms = new Fantom[4];
+                int i1,j1;
 		for (int i = 0 ; i < 4 ; i++){
 			fantoms[i] = new Fantom();
-			setCaseCreature(11,12+i,fantoms[i]);
+                        do{
+                            i1 = new Random().nextInt(n);
+                            j1 = new Random().nextInt(m);
+                            System.out.println("i1 :"+i1 + " j1 :" + j1);
+                        }while(!(getCaseGrille(i1,j1) instanceof Couloir || getCaseCreature(i1, j1) instanceof PacMan));
+			setCaseCreature(i1,j1,fantoms[i]);
 		}
-
 	}
 
 	public PacMan getPacman() {
