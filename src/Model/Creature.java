@@ -1,6 +1,11 @@
 package Model;
 
-abstract public class Creature/*imlements runnable*/ {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+abstract public class Creature {
 	private Direction currentDirection;
 	private PacMode mode;
 	
@@ -14,7 +19,12 @@ abstract public class Creature/*imlements runnable*/ {
 	}
 
 	public Creature() {
-		this.currentDirection = Direction.UP;
+		final List<Direction> VALUES =
+		Collections.unmodifiableList(Arrays.asList(Direction.values()));
+		final int SIZE = VALUES.size();
+		final Random RANDOM = new Random();
+		Direction d = VALUES.get(RANDOM.nextInt(SIZE));
+		this.currentDirection = d;
 	}
 	
 	public Creature(Direction dir) {
