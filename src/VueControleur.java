@@ -56,7 +56,8 @@ public class VueControleur extends Application {
           Observer o = new Observer() {
               @Override
               public void update(Observable observable, Object o) {
-                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghost,wall,coul,PacGum,SuperPacGum);
+                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,g_up,g_down,g_left,g_right,wall,coul,PacGum,SuperPacGum);
+                  //System.out.println(grille);
               }
           };
           
@@ -119,7 +120,7 @@ public class VueControleur extends Application {
         }
     }
 
-    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image ghost,Image wall,Image coul,Image PacGum,Image SuperPacGum){
+    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image g_up,Image g_down,Image g_left,Image g_right,Image wall,Image coul,Image PacGum, Image SuperPacGum){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
                 if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
