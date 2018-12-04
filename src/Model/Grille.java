@@ -75,9 +75,9 @@ public class Grille extends Observable implements Runnable{
                 
 		this.pacman = new PacMan();
 		setCaseCreature(23,13,pacman);
-		this.fantoms = new Fantom[1];
+		this.fantoms = new Fantom[4];
 		int i1 = 0 , j1 = 0;
-		for (int i = 0 ; i < 1 ; i++){
+		for (int i = 0 ; i < 4 ; i++){
 			fantoms[i] = new Fantom();
                         do{
                             i1 = new Random().nextInt(n);
@@ -263,20 +263,18 @@ public class Grille extends Observable implements Runnable{
 		}
 		return d;
 	}
-	public static Point dirToNextPos(Point p, Direction d){
-		Point p1 = new Point(0,0);
+	public static void dirToNextPos(Point p, Direction d){
 	    switch (d){
             case UP:
-                p1.setJ(p.getJ()-2);/*TODO ajouter modulo pour permetre le truc infini*/
+                p.setJ(p.getJ()-2);/*TODO ajouter modulo pour permetre le truc infini*/
                 break;
             case DOWN:
-                p1.setJ(p.getJ()+2);break;
+                p.setJ(p.getJ()+2);break;
             case LEFT:
-                p1.setI(p.getI()-2);break;
+                p.setI(p.getI()-2);break;
             case RIGHT:
-                p1.setI(p.getI()+2);break;
+                p.setI(p.getI()+2);break;
         }
-        return p1;
     }
 	
 	private void deplacerversCouloir(Point currentPos, Point nextPos, Creature c, Direction d) {
@@ -299,8 +297,8 @@ public class Grille extends Observable implements Runnable{
 				}else if(((PacMan) c).getMode() == PacMode.SUPER) {
 					((PacMan) c).eatFantom();
 					//TODO il faut modifier cette partie pour que le fantome se deplace à sa position initiale et recommence le jeu en mode regular au lieu de le supprimer fdp
-					/*creaturesMap.remove(getCaseCreature(nextPos));
-					setCaseCreature(nextPos, null);*/
+					creaturesMap.remove(getCaseCreature(nextPos));
+					setCaseCreature(nextPos, null);
 				}
 				deplacerCreature(c,c.getCurrentDirection());
 			}
@@ -315,37 +313,31 @@ public class Grille extends Observable implements Runnable{
 				deplacerCreature(c,c.getCurrentDirection());
 			}
 		}
-//		else if(c instanceof Fantom){
-//		    if(getCaseGrille(nextPos) != null){
-//                if(getCaseGrille(nextPos) instanceof Mur){
-//                    int coin = (int)(Math.random() * 3);
-//                    if(coin == 0){
-//                        c.setCurrentDirection(picOppositeDirection(c.getCurrentDirection()));
-//                    }else{
-//                        c.setCurrentDirection(picRandomDirection(c.getCurrentDirection()));
-//                    }
-//                }else if(getCaseGrille(nextPos) instanceof Couloir){
-//                    if(getCaseCreature(nextPos) instanceof Fantom){
-//                        c.setCurrentDirection(picOppositeDirection(c.getCurrentDirection()));
-//                    }/*else if(getCaseCreature(nextPos) instanceof PacMan){
-//                        PacMan pc = (PacMan)getCaseCreature(nextPos);
-//                        if(pc.getMode() == PacMode.REGULAR){
-//                            //setCaseCreature(getCreatureCoord(c),null);
-//                            System.out.println("THE GAME COULD HAVE BEEN OVER BUT I'M CANADIAN");
-//                        }else if(pc.getMode() == PacMode.SUPER){
-//                            //setCaseCreature(getCreatureCoord(c),null);
-//                        }
-//                    }*/
-//                }
-//                Bloc tmpBloc = getCaseGrille(dirToNextPos(nextPos,c.getCurrentDirection()));
-//                //if(tmpBloc != null && tmpBloc instanceof Couloir){
-//					nextPos = dirToNextPos(nextPos,c.getCurrentDirection());
-//				//}else{
-//                	//nextPos = currentPos;
-//				//}
-//
-//            }
-//        }
+		else if(c instanceof Fantom){
+		    if(getCaseGrille(nextPos) != null){
+                if(getCaseGrille(nextPos) instanceof Mur){
+                    int coin = (int)(Math.random() * 3);
+                    if(coin == 0){
+                        c.setCurrentDirection(picOppositeDirection(c.getCurrentDirection()));
+                    }else{
+                        c.setCurrentDirection(picRandomDirection(c.getCurrentDirection()));
+                    }
+                }else if(getCaseGrille(nextPos) instanceof Couloir){
+                    if(getCaseCreature(nextPos) instanceof Fantom){
+                        c.setCurrentDirection(picOppositeDirection(c.getCurrentDirection()));
+                    }else if(getCaseCreature(nextPos) instanceof PacMan){
+                        PacMan pc = (PacMan)getCaseCreature(nextPos);
+                        if(pc.getMode() == PacMode.REGULAR){
+                            setCaseCreature(getCreatureCoord(c),null);
+                            System.out.println("THE GAME COULD HAVE BEEN OVER BUT I'M CANADIAN");
+                        }else if(pc.getMode() == PacMode.SUPER){
+                            setCaseCreature(getCreatureCoord(c),null);
+                        }
+                    }
+                }
+                dirToNextPos(nextPos,c.getCurrentDirection());
+            }
+        }
 	}
 
 	public Point deplacerCreature(Creature c, Direction d) {
@@ -354,39 +346,39 @@ public class Grille extends Observable implements Runnable{
 		Point nextPos = new Point(0,0);
 			switch(d) {
 			case UP:
-				nextPos = new Point(currentPos.getI(), currentPos.getJ()-1);
-				if(this.getCaseGrille(nextPos) != null) {
+				if(this.getCaseGrille(currentPos.getI(), currentPos.getJ()-1) != null && !(this.getCaseGrille(currentPos.getI(), currentPos.getJ()-1) instanceof Mur)) {
+                    nextPos = new Point(currentPos.getI(), currentPos.getJ()-1);
 					deplacerversCouloir(currentPos, nextPos, c, d);
-//					creaturesMap.put(c, nextPos);
-//					creatures[nextPos.getI()][nextPos.getJ()] = c;
-//					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
 				}
 				break;
 			case RIGHT:
-				nextPos = new Point(currentPos.getI()+1, currentPos.getJ());
-				if(this.getCaseGrille(nextPos) != null) {
+				if(this.getCaseGrille(currentPos.getI()+1, currentPos.getJ()) != null && !(this.getCaseGrille(currentPos.getI()+1, currentPos.getJ()) instanceof Mur)) {
+					nextPos = new Point(currentPos.getI()+1, currentPos.getJ());
 					deplacerversCouloir(currentPos, nextPos, c, d);
-//					creaturesMap.put(c, nextPos);
-//					creatures[nextPos.getI()][nextPos.getJ()] = c;
-//					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
 				}
 				break;
 			case LEFT:
-				nextPos = new Point(currentPos.getI()-1, currentPos.getJ());
-				if(this.getCaseGrille(nextPos) != null) {
+				if(this.getCaseGrille(currentPos.getI()-1, currentPos.getJ()) != null && !(this.getCaseGrille(currentPos.getI()-1, currentPos.getJ()) instanceof Mur)) {
+					nextPos = new Point(currentPos.getI()-1, currentPos.getJ());
 					deplacerversCouloir(currentPos, nextPos, c, d);
-//					creaturesMap.put(c, nextPos);
-//					creatures[nextPos.getI()][nextPos.getJ()] = c;
-//					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
 				}
 				break;
 			case DOWN:
-				nextPos = new Point(currentPos.getI(), currentPos.getJ()+1);
-				if(this.getCaseGrille(nextPos) != null) {
+				if(this.getCaseGrille(currentPos.getI(), currentPos.getJ()+1) != null && !(this.getCaseGrille(currentPos.getI(), currentPos.getJ()+1) instanceof Mur)) {
+					nextPos = new Point(currentPos.getI(), currentPos.getJ()+1);
 					deplacerversCouloir(currentPos, nextPos, c, d);
-//					creaturesMap.put(c, nextPos);
-//					creatures[nextPos.getI()][nextPos.getJ()] = c;
-//					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creaturesMap.put(c, nextPos);
+					creatures[currentPos.getI()][currentPos.getJ()] = null;
+					creatures[nextPos.getI()][nextPos.getJ()] = c;
 				}break;
 			}
 		return nextPos;
@@ -400,7 +392,7 @@ public class Grille extends Observable implements Runnable{
 	public void run() {
 		while(true){
 			deplacerCreature(pacman,pacman.getCurrentDirection());
-			for (int i = 0 ; i < 1 ; i++){
+			for (int i = 0 ; i < 4 ; i++){
 				deplacerCreature(fantoms[i],fantoms[i].getCurrentDirection());
 			}
 			setChanged();
