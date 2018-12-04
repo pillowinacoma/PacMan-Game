@@ -34,10 +34,17 @@ public class VueControleur extends Application {
       @Override
     public void start(Stage primaryStage) {
           ImageView[][] grid=new ImageView[grille.getN()][grille.getM()];
-          
-          Image ghost = new Image("file:./img/ghost.png");
-          Image PacGum = new Image("file:./img/pacgum.png");
-          Image SuperPacGum = new Image("file:./img/SuperPacGum.png");
+
+          Image ghostUp1 = new Image("file:./img/ghostUp.png");
+          Image ghostDown1 = new Image("file:./img/ghostDown.png");
+          Image ghostLeft1 = new Image("file:./img/ghostLeft.png");
+          Image ghostRight1 = new Image("file:./img/ghostRight.png");
+          Image ghostUp2 = new Image("file:./img/ghostUp1.png");
+          Image ghostDown2 = new Image("file:./img/ghostDown1.png");
+          Image ghostLeft2 = new Image("file:./img/ghostLeft1.png");
+          Image ghostRight2 = new Image("file:./img/ghostRight1.png");
+          Image PacGum = new Image("file:./img/PacGum.png");
+          Image SuperPacGum = new Image("file:./img/superpacgum.png");
           Image wall = new Image("file:./img/blue.png");
           Image coul = new Image("file:./img/black.png");
           Image pacman_right = new Image("pacman1.png");
@@ -56,7 +63,7 @@ public class VueControleur extends Application {
           Observer o = new Observer() {
               @Override
               public void update(Observable observable, Object o) {
-                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,g_up,g_down,g_left,g_right,wall,coul,PacGum,SuperPacGum);
+                  afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghostUp1,ghostDown1,ghostLeft1,ghostRight1,ghostUp2,ghostDown2,ghostLeft2,ghostRight2,wall,coul,PacGum,SuperPacGum);
                   //System.out.println(grille);
               }
           };
@@ -68,14 +75,14 @@ public class VueControleur extends Application {
           root.getChildren().add(gridpane);     
           
          
-          String text = "chaoui dz viva lalgerie";
+          String text = "";
           Text Tex = new Text();
           Tex.setText(text);
           Tex.setX(400);
           Tex.setY(400);
           root.getChildren().add(Tex);
           
-          Scene scene = new Scene(root,(width)*grille.getM(),(height)*grille.getN(), Color.WHEAT);
+          Scene scene = new Scene(root,(width)*grille.getM(),(height)*grille.getN(), Color.BLACK);
           
           primaryStage.setTitle("Pac Man");
           primaryStage.setScene(scene);
@@ -103,6 +110,10 @@ public class VueControleur extends Application {
                           grille.getPacman().setCurrentDirection(Direction.LEFT);
                           System.out.println(grille.getPacman().getCurrentDirection() +" : " + grille.getCreatureCoord(grille.getPacman()));
                           break;
+                      case SPACE:
+                          Fantom [] f = grille.getFantoms();
+                          grille.deplacerCreature(f[0],f[0].getCurrentDirection());
+                          break;
                   }
               }
           });
@@ -120,7 +131,7 @@ public class VueControleur extends Application {
         }
     }
 
-    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image g_up,Image g_down,Image g_left,Image g_right,Image wall,Image coul,Image PacGum, Image SuperPacGum){
+    public static void afficher(int width,int height,int rowNb, int colNb,ImageView[][] grid,Grille grille, GridPane gridpane,Image pr,Image pd,Image pl,Image pu,Image g_up,Image g_down,Image g_left,Image g_right,Image g_up1,Image g_down1,Image g_left1,Image g_right1,Image wall,Image coul,Image PacGum, Image SuperPacGum){
         for(int i=0;i<rowNb;i++){
             for(int j=0;j<colNb;j++){
                 if((grille.getCaseGrille(i,j)instanceof Model.Mur)) {
@@ -130,7 +141,7 @@ public class VueControleur extends Application {
                     grid[i][j].setImage(coul);
                 }
                 if((grille.getCaseCreature(i,j)instanceof Model.PacMan)) {
-                   PacMan chaoui = (PacMan)(grille.getCaseCreature(i,j));
+                   Creature chaoui = (grille.getCaseCreature(i,j));
                    Direction d = chaoui.getCurrentDirection();
                    switch(d){
                        case UP:grid[i][j].setImage(pu);break;
@@ -140,7 +151,34 @@ public class VueControleur extends Application {
                    }
                 }
                 else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
-                    grid[i][j].setImage(ghost);
+                    Creature chaoui = (grille.getCaseCreature(i,j));
+                    Direction d = chaoui.getCurrentDirection();
+                    switch(d){
+                        case UP:
+                            if((i+j)%2==0)
+                                grid[i][j].setImage(g_up);
+                            else
+                                grid[i][j].setImage(g_up1);
+                            break;
+                        case DOWN:
+                                if((i+j)%2==0)
+                                grid[i][j].setImage(g_down);
+                            else
+                                grid[i][j].setImage(g_down1);
+                        ;break;
+                        case RIGHT:
+                                if((i+j)%2==0)
+                                grid[i][j].setImage(g_right);
+                            else
+                                grid[i][j].setImage(g_right1);
+                        break;
+                        case LEFT:
+                                if((i+j)%2==0)
+                                grid[i][j].setImage(g_left);
+                            else
+                                grid[i][j].setImage(g_left1);
+                        break;
+                    }
                 }
                 else if(grille.getCaseGrille(i,j)instanceof Model.Couloir){
                         if(((Couloir)grille.getCaseGrille(i,j)).isPacGum()){
