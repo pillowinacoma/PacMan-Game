@@ -23,13 +23,13 @@ public class Grille extends Observable implements Runnable{
 			{1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
-			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 2, 5, 2, 2, 2, 2, 5, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
-			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
+			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1},
 			{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1},
@@ -82,8 +82,8 @@ public class Grille extends Observable implements Runnable{
                         do{
                             i1 = new Random().nextInt(n);
                             j1 = new Random().nextInt(m);
-                            System.out.println("i1 :"+i1 + " j1 :" + j1);
                         }while(!(getCaseGrille(i1,j1) instanceof Couloir || getCaseCreature(i1, j1) != null));
+                        System.out.println("la postion du "+i+" phantom est ("+i1+","+j1+")");
 			setCaseCreature(i1,j1,fantoms[i]);
 		}
 	}
@@ -367,7 +367,6 @@ public class Grille extends Observable implements Runnable{
 			deplacerCreature(pacman,pacman.getCurrentDirection());
 			for (int i = 0 ; i < 4 ; i++){
 				deplacerCreature(fantoms[i],fantoms[i].getCurrentDirection());
-                                System.out.println("ici fantome");
 			}
 			setChanged();
 			notifyObservers();

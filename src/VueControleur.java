@@ -57,6 +57,7 @@ public class VueControleur extends Application {
               @Override
               public void update(Observable observable, Object o) {
                   afficher(width,height,grille.getN(),grille.getM(),grid,grille,gridpane,pacman_right,pacman_down,pacman_left,pacman_up,ghost,wall,coul,PacGum,SuperPacGum);
+                  System.out.println(grille);
               }
           };
           
@@ -141,7 +142,7 @@ public class VueControleur extends Application {
                 else if((grille.getCaseCreature(i,j)instanceof Model.Fantom)) {
                     grid[i][j].setImage(ghost);
                 }
-                if(grille.getCaseGrille(i,j)instanceof Model.Couloir){
+                else if(grille.getCaseGrille(i,j)instanceof Model.Couloir){
                         if(((Couloir)grille.getCaseGrille(i,j)).isPacGum()){
                         grid[i][j].setImage(PacGum);
                         }

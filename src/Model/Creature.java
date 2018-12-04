@@ -1,6 +1,6 @@
 package Model;
 
-abstract public class Creature {
+abstract public class Creature/*imlements runnable*/ {
 	private Direction currentDirection;
 	private PacMode mode;
 	
