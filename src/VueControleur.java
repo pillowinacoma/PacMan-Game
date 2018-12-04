@@ -64,12 +64,15 @@ public class VueControleur extends Application {
           grille.start();
           
           StackPane root = new StackPane();
-          root.getChildren().add(gridpane);
+          root.getChildren().add(gridpane);     
           
-          Label score= new Label();
-          score.setText("score :::::::::::");
-          
-          //root.getChildren().add(score);
+         
+          String text = "chaoui dz viva lalgerie";
+          Text Tex = new Text();
+          Tex.setText(text);
+          Tex.setX(400);
+          Tex.setY(400);
+          root.getChildren().add(Tex);
           
           Scene scene = new Scene(root,(width)*grille.getM(),(height)*grille.getN(), Color.WHEAT);
           
